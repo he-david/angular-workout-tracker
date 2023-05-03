@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-between mt-3 mx-3">
+  <select (change)="onFilter($event.target)" class=" form-select w-50">
+    <option value="all">All</option>
+    <option *ngFor="let name of workoutNames" [value]="name">{{ name[0].toUpperCase() + name.slice(1) }}</option>
+  </select>
+  <a routerLink="/new" class="btn btn-primary btn-shadow-blue-green">
+    Add Workout
+  </a>
+</div>
+
+<div *ngFor="let workout of workouts" class="card m-3">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-8">
+        <h3 class="card-title fw-bold">{{ workout.name }}</h3>
+        <p class="card-text"><span class="fw-bold">Duration:</span> {{ workout.duration }} minutes</p>
+        <p class="card-text"><span class="fw-bold">Date:</span> {{ workout.date | date }}</p>
+        <p *ngIf="workout.description" class=" card-text"><span class="fw-bold">Description:</span> {{
+          workout.description }}</p>
+        <button (click)="onNavigateToEdit(workout)" class="btn btn-primary btn-shadow-blue-green">Edit</button>
+      </div>
+      <div class="col-4">
+        <img [src]="workout.src" [alt]="workout.name" class="w-100">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-5 d-flex justify-content-center">
+  <p class="m-0" *ngIf="workouts.length === 0">Time to do something...</p>
+</div>
