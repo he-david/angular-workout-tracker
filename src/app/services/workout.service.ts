@@ -32,9 +32,10 @@ export class WorkoutService {
 
   addWorkout(workout: Workout) {
     if (['gym', 'stretch', 'swimming', 'yoga'].includes(workout.src)) {
-      workout.src = `../../assets/images/${workout.src}.png`;
+      workout.src = `angular-workout-tracker/assets/images/assets/images/${workout.src}.png`;
     } else {
-      workout.src = '../../assets/images/no-image.png';
+      workout.src =
+        '/angular-workout-tracker/assets/images/assets/images/no-image.png';
     }
     workout.id =
       this.workouts.reduce(
