@@ -10,7 +10,7 @@ export class WorkoutService {
       duration: 100,
       date: new Date(),
       description: 'not really much',
-      src: '../../assets/images/no-image.png',
+      src: 'https://he-david.github.io/angular-workout-tracker/assets/images/no-image.png',
     },
     {
       id: 2,
@@ -18,7 +18,7 @@ export class WorkoutService {
       duration: 100,
       date: new Date(),
       description: 'not really much',
-      src: '../../assets/images/gym.png',
+      src: 'https://he-david.github.io/angular-workout-tracker/assets/images/stretch.png',
     },
     {
       id: 3,
@@ -26,7 +26,7 @@ export class WorkoutService {
       duration: 100,
       date: new Date(),
       description: 'not really much',
-      src: '../../assets/images/no-image.png',
+      src: 'https://he-david.github.io/angular-workout-tracker/assets/images/gym.png',
     },
   ];
 
