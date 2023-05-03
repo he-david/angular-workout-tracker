@@ -32,10 +32,10 @@ export class WorkoutService {
 
   addWorkout(workout: Workout) {
     if (['gym', 'stretch', 'swimming', 'yoga'].includes(workout.src)) {
-      workout.src = `angular-workout-tracker/assets/images/assets/images/${workout.src}.png`;
+      workout.src = `https://he-david.github.io/angular-workout-tracker/assets/images/${workout.src}.png`;
     } else {
       workout.src =
-        '/angular-workout-tracker/assets/images/assets/images/no-image.png';
+        'https://he-david.github.io/angular-workout-tracker/assets/images/no-image.png';
     }
     workout.id =
       this.workouts.reduce(
@@ -47,9 +47,10 @@ export class WorkoutService {
 
   editWorkout(edited: Workout) {
     if (['gym', 'stretch', 'swimming', 'yoga'].includes(edited.src)) {
-      edited.src = `../../assets/images/${edited.src}.png`;
+      edited.src = `https://he-david.github.io/angular-workout-tracker/assets/images/${edited.src}.png`;
     } else {
-      edited.src = '../../assets/images/no-image.png';
+      edited.src =
+        'https://he-david.github.io/angular-workout-tracker/assets/images/no-image.png';
     }
     const index = this.workouts.findIndex(
       (workout) => workout.id === edited.id
