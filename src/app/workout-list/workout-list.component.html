@@ -8,7 +8,7 @@
   </a>
 </div>
 
-<div *ngFor="let workout of workouts" class="card m-3">
+<div *ngFor="let workout of workouts; let i = index;" class="card m-3">
   <div class="card-body">
     <div class="row">
       <div class="col-8">
@@ -18,6 +18,15 @@
         <p *ngIf="workout.description" class=" card-text"><span class="fw-bold">Description:</span> {{
           workout.description }}</p>
         <button (click)="onNavigateToEdit(workout)" class="btn btn-primary btn-shadow-blue-green">Edit</button>
+        <button (click)="potentiallyDeleted = i" class="btn btn-danger btn-shadow-red-orange ms-2">Delete</button>
+        <div *ngIf="i === potentiallyDeleted" class="p-2 w-50 bg-light shadow" style="margin-left: 45px;">
+          <span class=" d-block text-center">Are you sure?</span>
+          <div class="d-flex justify-content-center">
+            <button (click)="onDeleteWorkout(workout.id)" class="btn-sm btn-primary btn-shadow-blue-green">Yes</button>
+            <button (click)="potentiallyDeleted = undefined"
+              class="btn-sm btn-danger btn-shadow-red-orange ms-2">No</button>
+          </div>
+        </div>
       </div>
       <div class="col-4">
         <img [src]="workout.src" [alt]="workout.name" class="w-100">

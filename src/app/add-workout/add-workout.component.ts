@@ -28,7 +28,7 @@ export class AddWorkoutComponent {
       name: this.name,
       duration: this.duration!,
       date: this.date!,
-      src: this.name.toLowerCase(),
+      src: this.name.toLowerCase().trim(),
       description: this.description,
     };
     this.workoutService.addWorkout(newWorkout);

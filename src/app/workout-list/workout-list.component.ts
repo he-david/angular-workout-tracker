@@ -8,20 +8,15 @@ import { Router } from '@angular/router';
   templateUrl: './workout-list.component.html',
 })
 export class WorkoutListComponent implements OnInit {
+  potentiallyDeleted?: number;
   workouts: Workout[] = [];
   workoutNames: string[] = [];
 
   constructor(private workoutService: WorkoutService, private router: Router) {}
 
   ngOnInit(): void {
-    this.workouts = JSON.parse(
-      JSON.stringify(this.workoutService.workouts.sort((a, b) => b.id - a.id))
-    );
-    this.workouts.forEach((workout) => {
-      if (!this.workoutNames.includes(workout.name.toLowerCase())) {
-        this.workoutNames.push(workout.name.toLowerCase());
-      }
-    });
+    this.workouts = this.workoutService.getWorkouts();
+    this.workoutNames = this.setWorkoutNames();
   }
 
   onNavigateToEdit(workout: Workout) {
@@ -31,16 +26,29 @@ export class WorkoutListComponent implements OnInit {
   onFilter(target: any) {
     const selected: string = target.value;
     if (selected === 'all') {
-      this.workouts = JSON.parse(
-        JSON.stringify(this.workoutService.workouts.sort((a, b) => b.id - a.id))
-      );
+      this.workouts = this.workoutService.getWorkouts();
       return;
     }
-    const allWorkout: Workout[] = JSON.parse(
-      JSON.stringify(this.workoutService.workouts.sort((a, b) => b.id - a.id))
-    );
+    const allWorkout: Workout[] = this.workoutService.getWorkouts();
     this.workouts = allWorkout.filter(
-      (workout) => workout.name.toLowerCase() === selected
+      (workout) => workout.name.toLowerCase().trim() === selected
     );
+  }
+
+  onDeleteWorkout(id: number) {
+    this.workoutService.deleteWorkout(id);
+    this.potentiallyDeleted = undefined;
+    this.workouts = this.workoutService.getWorkouts();
+    this.workoutNames = this.setWorkoutNames();
+  }
+
+  private setWorkoutNames(): string[] {
+    const names: string[] = [];
+    this.workouts.forEach((workout) => {
+      if (!names.includes(workout.name.toLowerCase().trim())) {
+        names.push(workout.name.toLowerCase().trim());
+      }
+    });
+    return names;
   }
 }

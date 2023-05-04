@@ -10,9 +10,16 @@ import { FormsModule } from '@angular/forms';
 import { EditWorkoutComponent } from './edit-workout/edit-workout.component';
 
 @NgModule({
-  declarations: [AppComponent, WorkoutListComponent, AddWorkoutComponent, EditWorkoutComponent],
+  declarations: [
+    AppComponent,
+    WorkoutListComponent,
+    AddWorkoutComponent,
+    EditWorkoutComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [WorkoutService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+// ng build --output-path docs --base-href /angular-workout-tracker/

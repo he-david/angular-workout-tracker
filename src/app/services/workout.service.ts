@@ -3,32 +3,17 @@ import { Workout } from '../models/workout.model';
 
 @Injectable()
 export class WorkoutService {
-  workouts: Workout[] = [
-    {
-      id: 1,
-      name: 'First',
-      duration: 100,
-      date: new Date(),
-      description: 'not really much',
-      src: 'https://he-david.github.io/angular-workout-tracker/assets/images/no-image.png',
-    },
-    {
-      id: 2,
-      name: 'Second',
-      duration: 100,
-      date: new Date(),
-      description: 'not really much',
-      src: 'https://he-david.github.io/angular-workout-tracker/assets/images/stretch.png',
-    },
-    {
-      id: 3,
-      name: 'Third',
-      duration: 100,
-      date: new Date(),
-      description: 'not really much',
-      src: 'https://he-david.github.io/angular-workout-tracker/assets/images/gym.png',
-    },
-  ];
+  workouts: Workout[] = localStorage.getItem('workouts')
+    ? JSON.parse(localStorage.getItem('workouts')!)
+    : [];
+
+  getWorkouts(): Workout[] {
+    const workoutsStr = localStorage.getItem('workouts');
+
+    return workoutsStr
+      ? (JSON.parse(workoutsStr) as Workout[]).sort((a, b) => b.id - a.id)
+      : [];
+  }
 
   addWorkout(workout: Workout) {
     if (['gym', 'stretch', 'swimming', 'yoga'].includes(workout.src)) {
@@ -43,6 +28,9 @@ export class WorkoutService {
         -1
       ) + 1;
     this.workouts.push(workout);
+
+    localStorage.removeItem('workouts');
+    localStorage.setItem('workouts', JSON.stringify(this.workouts));
   }
 
   editWorkout(edited: Workout) {
@@ -57,5 +45,15 @@ export class WorkoutService {
     );
     this.workouts.splice(index, 1)[0];
     this.workouts.push(edited);
+
+    localStorage.removeItem('workouts');
+    localStorage.setItem('workouts', JSON.stringify(this.workouts));
+  }
+
+  deleteWorkout(id: number) {
+    const index = this.workouts.findIndex((workout) => workout.id === id);
+    this.workouts.splice(index, 1)[0];
+    localStorage.removeItem('workouts');
+    localStorage.setItem('workouts', JSON.stringify(this.workouts));
   }
 }
