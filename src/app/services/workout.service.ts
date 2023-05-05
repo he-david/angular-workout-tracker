@@ -16,7 +16,17 @@ export class WorkoutService {
   }
 
   addWorkout(workout: Workout) {
-    if (['gym', 'stretch', 'swimming', 'yoga'].includes(workout.src)) {
+    if (
+      [
+        'gym',
+        'stretch',
+        'swimming',
+        'triatlon',
+        'bodybuilding',
+        'yoga',
+        'golf',
+      ].includes(workout.src)
+    ) {
       workout.src = `https://he-david.github.io/angular-workout-tracker/assets/images/${workout.src}.png`;
     } else {
       workout.src =
